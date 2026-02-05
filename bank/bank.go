@@ -1,56 +1,35 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"os"
-	"strconv"
+
+	"example.com/bank/fileops"
+	"github.com/Pallinder/go-randomdata"
 )
 
 const balanceFile = "balance.txt"
-const defaultBalance = 1000.00
-
-func getBalanceFromFile() (float64, error) {
-	data, err := os.ReadFile(balanceFile)
-
-	if err != nil {
-		return defaultBalance, errors.New("balance file not found")
-	}
-
-	balanceText := string(data)
-	balance, err := strconv.ParseFloat(balanceText, 64)
-
-	if err != nil {
-		return defaultBalance, errors.New("value can't be converted to float")
-	}
-
-	return balance, nil
-}
-
-func writeBalanceToFile(balance float64) {
-	newBalance := fmt.Sprint(balance)
-	os.WriteFile(balanceFile, []byte(newBalance), 0644)
-}
 
 func main() {
-	accoutBalance, err := getBalanceFromFile()
+	accoutBalance, err := fileops.GetFloatFromFile(balanceFile)
 	if err != nil {
 		fmt.Println("ERROR")
 		fmt.Println(err)
-		fmt.Println("------------------------")
-		panic("Abort Application")
 	}
 
-	fmt.Println("Welcome to 'Go Bank'!")
-	fmt.Println("----------------------------")
+	fmt.Println("")
+	fmt.Println(` /$$$$$$   /$$$$$$        /$$$$$$$   /$$$$$$  /$$   /$$ /$$   /$$
+ /$$__  $$ /$$__  $$      | $$__  $$ /$$__  $$| $$$ | $$| $$  /$$/
+| $$  \__/| $$  \ $$      | $$  \ $$| $$  \ $$| $$$$| $$| $$ /$$/ 
+| $$ /$$$$| $$  | $$      | $$$$$$$ | $$$$$$$$| $$ $$ $$| $$$$$/  
+| $$|_  $$| $$  | $$      | $$__  $$| $$__  $$| $$  $$$$| $$  $$  
+| $$  \ $$| $$  | $$      | $$  \ $$| $$  | $$| $$\  $$$| $$\  $$ 
+|  $$$$$$/|  $$$$$$/      | $$$$$$$/| $$  | $$| $$ \  $$| $$ \  $$
+ \______/  \______/       |_______/ |__/  |__/|__/  \__/|__/  \__/`)
+	fmt.Println("Phone: ", randomdata.PhoneNumber())
 
 	for {
 
-		fmt.Println("What do you want to do?")
-		fmt.Println("1. Check Balance")
-		fmt.Println("2. Deposit Money")
-		fmt.Println("3. Withdraw Money")
-		fmt.Println("4. Exit")
+		presentOptions()
 
 		var choice int
 		fmt.Print("Your choice: ")
@@ -70,7 +49,7 @@ func main() {
 			}
 
 			accoutBalance += depositAmount
-			writeBalanceToFile(accoutBalance)
+			fileops.WriteFloatToFile(accoutBalance, balanceFile)
 			fmt.Printf("Balance updated! New amount: %.2f€\n", accoutBalance)
 		case 3:
 			fmt.Print("Your withdrawal: ")
@@ -88,7 +67,7 @@ func main() {
 			}
 
 			accoutBalance -= whithdrawalAmount
-			writeBalanceToFile(accoutBalance)
+			fileops.WriteFloatToFile(accoutBalance, balanceFile)
 			fmt.Printf("Balance updated! New amount: %.2f€\n", accoutBalance)
 
 		default:
