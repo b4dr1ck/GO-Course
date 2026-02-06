@@ -25,43 +25,51 @@ func main() {
 			calcWrapper("*")
 		case 4:
 			calcWrapper("/")
-		case 5:
+		default:
+			fmt.Println("Exiting... Bye!")
 			return
-
 		}
 	}
 }
 
 func calcWrapper(operator string) {
-	var userInput int
-	var number1 = rand.IntN(100)
-	var number2 = rand.IntN(100)
-	var result int
+	for {
+		var userInput int
+		var number1 = rand.IntN(100)
+		var number2 = rand.IntN(100)
+		var result int
 
-	switch operator {
-	case "+":
-		result = number1 + number2
-	case "-":
-		result = number1 - number2
-	case "*":
-		result = number1 * number2
-	case "/":
-		result = number1 / number2
+		switch operator {
+		case "+":
+			result = number1 + number2
+		case "-":
+			result = number1 - number2
+		case "*":
+			result = number1 * number2
+		case "/":
+			result = number1 / number2
+		}
+
+		fmt.Printf("%v %s %v = ", number1, operator, number2)
+
+		scan, err := fmt.Scan(&userInput)
+		if err != nil || scan != 1 {
+			fmt.Println(">>Please type in a valid number!<<")
+			fmt.Println()
+			return
+		}
+
+		if userInput == result {
+			fmt.Println("☑ Correct!")
+			score += 1
+		} else {
+			fmt.Println("☒ Wrong!")
+			fmt.Printf("Result is: %v\n\n", result)
+			score -= 1
+			return
+		}
+		fmt.Println()
 	}
-
-	fmt.Printf("%v %s %v = ", number1, operator, number2)
-
-	fmt.Scan(&userInput)
-
-	if userInput == result {
-		fmt.Println("☑ Correct!")
-		score += 1
-	} else {
-		fmt.Println("☒ Wrong!")
-		fmt.Printf("Result is: %v\n", result)
-		score -= 1
-	}
-	fmt.Println()
 }
 
 func showHeader() {
