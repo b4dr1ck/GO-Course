@@ -158,6 +158,28 @@ Konstanten
 const myFile = "test.txt"
 ```
 
+### Pointer
+Pointer sind im Gegensatz zu normalen Variablen nur ein "Zeiger" auf die Adresse in der die jew. Variable im Memory gespeichert ist.
+
+Pointer machen Sinn wenn man z.B vermeiden möchte das gleich Wert öfters im RAM gespeichert wird. 
+Standardmäßig speichert nämlich GO ein Kopie eines Werts wenn man den einer Funktion übergibt. Mit Pointer wird dieser nur einmal im RAM abgespeichert.
+
+Oder wenn man Werte direkt manipulieren möchte z.B innerhalb einer Funktion.
+Somit muss man nicht den "neuen" Wert mittels return zurückgeben und abspeichern.
+
+```go
+var age int = 32
+var agePointer *int = &age // Speichere nur die Adresse (im RAM) der Variable, nicht den Wert
+
+fmt.Println(agePointer)  // zeigt nur die Adresse im Speicher an z.B 0xc000118008
+fmt.Println(*agePointer) // dereferenziere den Pointer und erhalte den Wert
+
+age = 22
+fmt.Println(*agePointer) // würde nun 22 zurückgeben
+
+```
+
+
 ### Stdout
 
 Konsolenausgabe kann mit den jew. Print Functions im "fmt"-Package gemacht werden
