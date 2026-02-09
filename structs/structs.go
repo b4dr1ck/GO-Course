@@ -26,14 +26,14 @@ func (u *user) clearUserName() {
 }
 
 // constructor for the struct (not a feature just a design-pattern)
-func newUser(firstName, lastName, birthdate string) (*user, error) {
+func newUser(firstName, lastName, birthdate string) (user, error) {
 	// validation
 	if firstName == "" || lastName == "" || birthdate == "" {
-		return nil, errors.New("Input may not be empty!")
+		return user{}, errors.New("Input may not be empty!")
 	}
 
 	// set the values to the struct and return it
-	return &user{
+	return user{
 		firstName:    firstName,
 		lastName:     lastName,
 		birthdate:    birthdate,
@@ -46,7 +46,7 @@ func main() {
 	userLastName := getUserData("Please enter your last name: ")
 	userBirthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
 
-	var appUser *user
+	var appUser user
 
 	// init a new struct-instance
 	appUser, err := newUser(userFirstName, userLastName, userBirthdate)

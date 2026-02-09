@@ -158,6 +158,60 @@ Konstanten
 const myFile = "test.txt"
 ```
 
+### Structs
+Structs werden verwendet um Daten zu gruppieren (vergleichbar mit einem Dictonary oder JSON-Object). 
+
+Deklaration
+```go
+type user struct {
+	firstName    string
+	lastName     string
+	birthdate    string
+	creationTime time.Time
+}
+```
+Zuweisen der Werte
+```go
+var newPerson user
+newPerson = user{
+  firstName: "Patrick",
+  lastName: "Reiter",
+  birthdate: "25.12.1988"
+}
+```
+Zuweisen über Constructor-Funktion (inkl. Error-Handling)
+```go
+func newUser(firstName, lastName, birthdate string) (user, error) {
+	return user{
+		firstName:    firstName,
+		lastName:     lastName,
+		birthdate:    birthdate,
+		creationTime: time.Now(),
+	}, nil
+}
+
+appUser, err := newUser(userFirstName, userLastName, userBirthdate)
+if err != nil {
+  fmt.Println(err)
+  return
+}
+```
+Eine Methode einem Struct zuweisen (receiver)
+
+```go
+func (u user) outputUserData() {
+	fmt.Println(u.firstName, u.lastName, u.birthdate)
+}
+```
+Eine Methode die Daten im Struct manipuliert erstellen (Pointer verwenden!)
+```go
+func (u *user) clearUserName() {
+	u.firstName = ""
+	u.lastName = ""
+}
+
+```
+
 ### Pointer
 Pointer sind im Gegensatz zu normalen Variablen nur ein "Zeiger" auf die Adresse in der die jew. Variable im Memory gespeichert ist.
 
