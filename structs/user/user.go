@@ -15,6 +15,12 @@ type User struct {
 	creationTime time.Time
 }
 
+type Admin struct {
+	email    string
+	password string
+	User     // embedded struct (inheritance)
+}
+
 // add a method to a struct (receiver)
 func (u User) OutputUserData() {
 	fmt.Println(u.firstName, u.lastName, u.birthdate)
@@ -24,6 +30,19 @@ func (u User) OutputUserData() {
 func (u *User) ClearUserName() {
 	u.firstName = ""
 	u.lastName = ""
+}
+
+func NewAdmin(email, password string) Admin {
+	return Admin{
+		email:    email,
+		password: password,
+		User: User{
+			firstName:    "ADMIN",
+			lastName:     "ADMIN",
+			birthdate:    "---",
+			creationTime: time.Now(),
+		},
+	}
 }
 
 // constructor for the struct (not a feature just a design-pattern)

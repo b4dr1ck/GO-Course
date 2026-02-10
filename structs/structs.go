@@ -20,6 +20,10 @@ func main() {
 		return
 	}
 
+	// create an admin
+	admin := user.NewAdmin("admin@example.com", "test123")
+	admin.User.OutputUserData()
+
 	// call the defined methods
 	appUser.OutputUserData()
 	fmt.Println("Clearing user name...")
