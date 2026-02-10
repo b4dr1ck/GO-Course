@@ -28,7 +28,7 @@ Aufbau eines simplen Modules:
 ├── bank.go           # main module (wird beim Start aufgerufen)
 ├── communication.go  # communication-module (innerhalb main-package)
 ├── fileops           # fileops-package
-│   └── fileops.go    # fileops module 
+│   └── fileops.go    # fileops module
 └── go.mod            # module example.com/bank
 ```
 
@@ -60,16 +60,20 @@ func main() {
 ```
 
 ### Externe Packages
+
 Installation (Beschreibung meist auf Seite zu finden)
 https://pkg.go.dev/
 
 ```
 go get <url>
 ```
+
 Beispiel
+
 ```
 go get github.com/Pallinder/go-randomdata
 ```
+
 Danach wird das go.mod File updated und das Package kann verwendet werden.
 
 ```go
@@ -78,7 +82,7 @@ require github.com/Pallinder/go-randomdata v1.2.0 // indirect
 ```
 
 ```go
-// Package verwenden 
+// Package verwenden
 import "github.com/Pallinder/go-randomdata"
 
 fmt.Println("Phone: ", randomdata.PhoneNumber())
@@ -159,9 +163,11 @@ const myFile = "test.txt"
 ```
 
 ### Structs
-Structs werden verwendet um Daten zu gruppieren (vergleichbar mit einem Dictonary oder JSON-Object). 
+
+Structs werden verwendet um Daten zu gruppieren (vergleichbar mit einem Dictonary oder JSON-Object).
 
 Deklaration
+
 ```go
 type user struct {
 	firstName    string
@@ -170,7 +176,9 @@ type user struct {
 	creationTime time.Time
 }
 ```
+
 Zuweisen der Werte
+
 ```go
 var newPerson user
 newPerson = user{
@@ -179,7 +187,9 @@ newPerson = user{
   birthdate: "25.12.1988"
 }
 ```
+
 Zuweisen über Constructor-Funktion (inkl. Error-Handling)
+
 ```go
 func newUser(firstName, lastName, birthdate string) (user, error) {
 	return user{
@@ -196,6 +206,7 @@ if err != nil {
   return
 }
 ```
+
 Eine Methode einem Struct zuweisen (receiver)
 
 ```go
@@ -203,7 +214,9 @@ func (u user) outputUserData() {
 	fmt.Println(u.firstName, u.lastName, u.birthdate)
 }
 ```
+
 Eine Methode die Daten im Struct manipuliert erstellen (Pointer verwenden!)
+
 ```go
 func (u *user) clearUserName() {
 	u.firstName = ""
@@ -212,10 +225,38 @@ func (u *user) clearUserName() {
 
 ```
 
+Embedded Struct
+
+```go
+type admin struct {
+  email string,
+  password string,
+  user // erbt das user-struct
+}
+```
+
+Zuweisen über Constructor-Funktion inkl. Werte für Embedded Struct (user)
+
+```go
+func newAdmin(email, password string) admin {
+	return admin{
+    email: email,
+    password: password,
+    user: user{
+ 		  firstName:    firstName,
+		  lastName:     lastName,
+		  birthdate:    birthdate,
+		  creationTime: time.Now()
+    }
+  }
+}
+```
+
 ### Pointer
+
 Pointer sind im Gegensatz zu normalen Variablen nur ein "Zeiger" auf die Adresse in der die jew. Variable im Memory gespeichert ist.
 
-Pointer machen Sinn wenn man z.B vermeiden möchte das gleich Wert öfters im RAM gespeichert wird. 
+Pointer machen Sinn wenn man z.B vermeiden möchte das gleich Wert öfters im RAM gespeichert wird.
 Standardmäßig speichert nämlich GO ein Kopie eines Werts wenn man den einer Funktion übergibt. Mit Pointer wird dieser nur einmal im RAM abgespeichert.
 
 Oder wenn man Werte direkt manipulieren möchte z.B innerhalb einer Funktion.
@@ -232,7 +273,6 @@ age = 22
 fmt.Println(*agePointer) // würde nun 22 zurückgeben
 
 ```
-
 
 ### Stdout
 
