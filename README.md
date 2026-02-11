@@ -90,7 +90,7 @@ fmt.Println("Phone: ", randomdata.PhoneNumber())
 
 ### Kontrollstrukturen
 
-IF / ELESE IF / ELSE
+**IF / ELESE IF / ELSE**
 
 ```go
 if a < 10 {
@@ -102,7 +102,7 @@ if a < 10 {
 }
 ```
 
-SWITCH
+**SWITCH**
 
 ```go
 switch a {
@@ -117,7 +117,7 @@ default:
 }
 ```
 
-FOR
+**FOR**
 
 ```go
 // Endlos-Schleife
@@ -166,7 +166,7 @@ const myFile = "test.txt"
 
 Structs werden verwendet um Daten zu gruppieren (vergleichbar mit einem Dictonary oder JSON-Object).
 
-Deklaration
+**Deklaration**
 
 ```go
 type user struct {
@@ -177,7 +177,7 @@ type user struct {
 }
 ```
 
-Zuweisen der Werte
+**Zuweisen der Werte**
 
 ```go
 var newPerson user
@@ -188,10 +188,14 @@ newPerson = user{
 }
 ```
 
-Zuweisen über Constructor-Funktion (inkl. Error-Handling)
+**Zuweisen über Constructor-Funktion (inkl. Error-Handling)**
 
 ```go
 func newUser(firstName, lastName, birthdate string) (user, error) {
+  if firstName == "" || lastName == "" || birthdate == "" {
+    user{},errors.New("Input may not be empty")
+  }
+
 	return user{
 		firstName:    firstName,
 		lastName:     lastName,
@@ -207,7 +211,7 @@ if err != nil {
 }
 ```
 
-Eine Methode einem Struct zuweisen (receiver)
+**Eine Methode einem Struct zuweisen (receiver)**
 
 ```go
 func (u user) outputUserData() {
@@ -215,7 +219,7 @@ func (u user) outputUserData() {
 }
 ```
 
-Eine Methode die Daten im Struct manipuliert erstellen (Pointer verwenden!)
+**Eine Methode die Daten im Struct manipuliert erstellen (Pointer verwenden!)**
 
 ```go
 func (u *user) clearUserName() {
@@ -225,7 +229,7 @@ func (u *user) clearUserName() {
 
 ```
 
-Embedded Struct
+**Embedded Struct**
 
 ```go
 type admin struct {
@@ -235,7 +239,7 @@ type admin struct {
 }
 ```
 
-Zuweisen über Constructor-Funktion inkl. Werte für Embedded Struct (user)
+**Zuweisen über Constructor-Funktion inkl. Werte für Embedded Struct (user)**
 
 ```go
 func newAdmin(email, password string) admin {
