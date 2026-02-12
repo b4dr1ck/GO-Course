@@ -303,6 +303,44 @@ var name string
 fmt.Scan(&name) // verwende pointer zur variable (&-Symbol)
 ```
 
+Für Input der mehr als einem Wert bzw. mehreren Wörtern besteht, kann ein Reader (IO-Buffer) verwendet werden
+```go
+reader := bufio.NewReader(os.Stdin)
+text, err := reader.ReadString('\n') // rune with single-quotes ''
+
+if err != nil {
+  return ""
+}
+
+text = strings.TrimSuffix(text, "\n")
+text = strings.TrimSuffix(text, "\r") // for windows line-endings
+```
+
+### Json Encoding
+Structs als Json-Object encodieren.
+
+Die Felder des Structs müssen "public" (mit UpperCase beginnen) sein, damit sie in ein JSON-Object konvertiert werden können.
+
+```go
+import "encoding/json"
+
+// using tags for the keys in the json-object (`json:"key_name")
+type Note struct {
+	Title     string    `json:"title"`
+	Content   string    `json:"content"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+func (note Note) Save() error {
+  json, err := json.Marshal(note) // encode
+  if err != nil {
+    return err
+  }
+  // code to save json-file ....
+}
+
+```
+
 ### Files lesen/schreiben
 
 File schreiben
