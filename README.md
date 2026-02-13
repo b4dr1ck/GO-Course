@@ -162,6 +162,34 @@ Konstanten
 const myFile = "test.txt"
 ```
 
+### Type Assertions
+
+Datentyp bestimmen mittels `value.(T)
+```go
+var a any = 10
+typeInt, ok := a.(int) // check if a is of type int
+if ok {
+  fmt.Printf("a is of type int: %v\n", typeInt)
+}
+```
+
+Datentype bestimmen mittels Type-Switch
+```go
+// type assertions with type-switch
+switch a.(type) {
+case int:
+  fmt.Printf("Integer: %v\n", a)
+case float64:
+  fmt.Printf("Float: %v\n", a)
+case string:
+  fmt.Printf("String: %v\n", a)
+case bool:
+  fmt.Printf("bool: %v\n", a)
+default:
+  fmt.Print("Unknown Type\n")
+}
+```
+
 ### Structs
 
 Structs werden verwendet um Daten zu gruppieren (vergleichbar mit einem Dictonary oder JSON-Object).
