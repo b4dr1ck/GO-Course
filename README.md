@@ -1,8 +1,6 @@
-# GO Lang
+# GO Lang - Basics
 
-## Basis Konzepte
-
-### Main Module
+## Main Module
 
 Jedes Programm benötigt einen Einstiegspunkt: das **Main Package**.
 Dies ist wie folgt aufgebaut und ruft beim Start sofoft die deklarierte main-Function auf:
@@ -15,9 +13,9 @@ func main() {
 }
 ```
 
-### Module und Packages
+## Module und Packages
 
-Ein Module wird mittels `go mod init` erstellt.
+Ein Module wird mittels `go mod init <module url>` erstellt.
 
 Jedes Module muss mindestens ein main package und eine `main() function als Einstiegspunkt haben.
 Weitere Packages müssen als Folder erstellt werden.
@@ -59,7 +57,7 @@ func main() {
 
 ```
 
-### Externe Packages
+## Externe Packages
 
 Installation (Beschreibung meist auf Seite zu finden)
 https://pkg.go.dev/
@@ -88,7 +86,7 @@ import "github.com/Pallinder/go-randomdata"
 fmt.Println("Phone: ", randomdata.PhoneNumber())
 ```
 
-### Kontrollstrukturen
+## Kontrollstrukturen
 
 **IF / ELESE IF / ELSE**
 
@@ -138,7 +136,7 @@ for i < 10 {
 }
 ```
 
-### Datentypen / Variablen
+## Datentypen / Variablen
 
 primitve Datentypen
 
@@ -162,7 +160,7 @@ Konstanten
 const myFile = "test.txt"
 ```
 
-### Type Assertions
+## Type Assertions
 
 Datentyp bestimmen mittels `value.(T)
 ```go
@@ -190,7 +188,7 @@ default:
 }
 ```
 
-### Structs
+## Structs
 
 Structs werden verwendet um Daten zu gruppieren (vergleichbar mit einem Dictonary oder JSON-Object).
 
@@ -284,7 +282,45 @@ func newAdmin(email, password string) admin {
 }
 ```
 
-### Pointer
+## Arrays / Slices
+
+Neues Array deklarieren
+```go
+var myProducts [4]string
+myProducts = [4]string{"Book","Pen","TV","Apple"}
+
+// shorthand
+myProducts := [4]string{"Book","Pen","TV","Apple"}
+```
+
+Über Index neue Werte setzen
+```go
+fmt.Println(myProducts[1]) // --> Pen
+
+// zweites Element setzen (0-based index)
+myProducts[1] = "Brush"
+
+fmt.Println(myProducts[1]) // --> Brush
+```
+
+Dynamisches Array erstellen (no fixed size)
+```go
+myProducts := []string{"Book"}
+
+// weitere Elemente hinzufügen
+myProducts = append(myProducts,"Pen")
+```
+
+Slices verwenden
+```go
+// start-index ist inkludiert
+// end-index ist exkludiert
+fmt.Println(myProducts[1:3]) // --> Pen, TV
+fmt.Println(myProducts[1:])  // --> Pen, TV, Apple
+fmt.Println(myProducts[:1])  // --> Book
+```
+
+## Pointer
 
 Pointer sind im Gegensatz zu normalen Variablen nur ein "Zeiger" auf die Adresse in der die jew. Variable im Memory gespeichert ist.
 
@@ -306,7 +342,7 @@ fmt.Println(*agePointer) // würde nun 22 zurückgeben
 
 ```
 
-### Stdout
+## Stdout
 
 Konsolenausgabe kann mit den jew. Print Functions im "fmt"-Package gemacht werden
 
@@ -320,7 +356,7 @@ text := "World"
 fmt.Printf("Hello %v", text) // with values
 ```
 
-### Stdin
+## Stdin
 
 Werte in den STDIN einlesen mittels Scan-Function
 
@@ -344,7 +380,7 @@ text = strings.TrimSuffix(text, "\n")
 text = strings.TrimSuffix(text, "\r") // for windows line-endings
 ```
 
-### Json Encoding
+## Json Encoding
 Structs als Json-Object encodieren.
 
 Die Felder des Structs müssen "public" (mit UpperCase beginnen) sein, damit sie in ein JSON-Object konvertiert werden können.
@@ -369,7 +405,7 @@ func (note Note) Save() error {
 
 ```
 
-### Files lesen/schreiben
+## Files lesen/schreiben
 
 File schreiben
 
@@ -392,7 +428,7 @@ import "os"
 result, err := os.ReadFile("filename.txt")
 ```
 
-### Functions
+## Functions
 
 ```go
 func name (param1 type, ...) returntype {
@@ -406,7 +442,7 @@ func plus(a int, b int) int {
 }
 ```
 
-### Error Handling
+## Error Handling
 
 Wenn eine Funktion ein Error-Object zurückgibt kann dieses verwendet werden
 
