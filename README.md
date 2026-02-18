@@ -163,6 +163,7 @@ const myFile = "test.txt"
 ## Type Assertions
 
 Datentyp bestimmen mittels `value.(T)
+
 ```go
 var a any = 10
 typeInt, ok := a.(int) // check if a is of type int
@@ -172,6 +173,7 @@ if ok {
 ```
 
 Datentype bestimmen mittels Type-Switch
+
 ```go
 // type assertions with type-switch
 switch a.(type) {
@@ -285,6 +287,7 @@ func newAdmin(email, password string) admin {
 ## Arrays / Slices
 
 Neues Array deklarieren
+
 ```go
 var myProducts [4]string
 myProducts = [4]string{"Book","Pen","TV","Apple"}
@@ -294,6 +297,7 @@ myProducts := [4]string{"Book","Pen","TV","Apple"}
 ```
 
 Über Index neue Werte setzen
+
 ```go
 fmt.Println(myProducts[1]) // --> Pen
 
@@ -304,6 +308,7 @@ fmt.Println(myProducts[1]) // --> Brush
 ```
 
 Dynamisches Array erstellen (no fixed size)
+
 ```go
 myProducts := []string{"Book"}
 
@@ -312,12 +317,22 @@ myProducts = append(myProducts,"Pen")
 ```
 
 Slices verwenden
+
 ```go
 // start-index ist inkludiert
 // end-index ist exkludiert
 fmt.Println(myProducts[1:3]) // --> Pen, TV
 fmt.Println(myProducts[1:])  // --> Pen, TV, Apple
 fmt.Println(myProducts[:1])  // --> Book
+```
+
+Unpacking Arrays `list...` 
+
+```go
+productPrices := []float64{10.99,20.0,105.99}
+newProductPrices := []float64{25.99, 200.0}
+
+productPrices = append(productPrices,newProductPrices...) // ...-operator
 ```
 
 ## Pointer
@@ -368,6 +383,7 @@ fmt.Scan(&name) // verwende pointer zur variable (&-Symbol)
 ```
 
 Für Input der mehr als einem Wert bzw. mehreren Wörtern besteht, kann ein Reader (IO-Buffer) verwendet werden
+
 ```go
 reader := bufio.NewReader(os.Stdin)
 text, err := reader.ReadString('\n') // rune with single-quotes ''
@@ -381,6 +397,7 @@ text = strings.TrimSuffix(text, "\r") // for windows line-endings
 ```
 
 ## Json Encoding
+
 Structs als Json-Object encodieren.
 
 Die Felder des Structs müssen "public" (mit UpperCase beginnen) sein, damit sie in ein JSON-Object konvertiert werden können.
