@@ -160,6 +160,35 @@ Konstanten
 const myFile = "test.txt"
 ```
 
+## Custom Type / Type Aliases
+
+Eigene Types definieren 
+
+```go
+type number int
+
+var myNumber number
+myNumber = 5
+
+```
+Eigene Methoden für eigene Typen definieren
+```go
+import "fmt"
+
+// custom type "str"
+type str string
+
+// declare method
+func (s str) output() {
+	fmt.Printf("This is my String: %s", s)
+}
+func main() {
+	var text str
+	text = "Hello World"
+	text.output()
+}
+```
+
 ## Type Assertions
 
 Datentyp bestimmen mittels `value.(T)
