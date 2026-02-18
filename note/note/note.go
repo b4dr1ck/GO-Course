@@ -15,8 +15,12 @@ type Note struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
+func (note Note) Output() {
+	fmt.Printf("  Your note titled '%v', has following input: '%v'\n", note.Title, note.Content)
+}
+
 func (note Note) Display() {
-	fmt.Printf("Your note titled '%v', has following input:\n\n%v\n", note.Title, note.Content)
+	fmt.Printf("* %v\n %v\n", note.Title, note.Content)
 }
 
 func (note Note) Save() error {

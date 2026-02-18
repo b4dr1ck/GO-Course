@@ -2,16 +2,21 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 
 	"example.com/note/note"
 )
 
 func main() {
-	title, content := getNoteData()
+	listDir()
 
+	fmt.Println("Add a new note:")
+
+	title, content := getNoteData()
 	userNote, err := note.New(title, content)
 
 	if err != nil {
@@ -19,15 +24,47 @@ func main() {
 		return
 	}
 
-	userNote.Display()
+	userNote.Output()
 
 	err = userNote.Save()
 	if err != nil {
 		fmt.Println("Error saving file")
 		return
 	}
+}
 
-	fmt.Println("Saving file...")
+func listDir() {
+	files, err := os.ReadDir(".")
+
+	fmt.Println("Your saved notes:")
+
+	if err != nil {
+		fmt.Println("Error reading directory")
+		return
+	}
+
+	var fileName string
+	var fileContent []byte
+	for _, file := range files {
+		matched, _ := regexp.MatchString(`.*\.json$`, file.Name())
+		if matched {
+			fileName = file.Name()
+			fileContent, err = os.ReadFile(file.Name())
+			if err != nil {
+				fmt.Printf("Error reading file %v\n", fileName)
+				continue
+			}
+
+			var note note.Note
+			err = json.Unmarshal(fileContent, &note)
+			if err != nil {
+				fmt.Printf("Error parsing file %v\n", fileName)
+				continue
+			}
+			note.Display()
+			fmt.Println()
+		}
+	}
 }
 
 func getNoteData() (string, string) {
