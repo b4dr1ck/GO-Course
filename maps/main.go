@@ -27,4 +27,9 @@ func main() {
 	delete(urls, "google")
 
 	fmt.Println(urls)
+
+	// iteriere über die Map
+	for key, value := range urls {
+		fmt.Printf("[%v] => %v\n", key, value)
+	}
 }

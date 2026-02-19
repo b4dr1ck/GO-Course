@@ -134,6 +134,11 @@ for i < 10 {
   i++
   fmt.Printf("%v",i)
 }
+
+// iteriere über die Map (oder Array)
+for key, value := range urls {
+  fmt.Printf("[%v] => %v\n", key, value)
+}
 ```
 
 ## Datentypen / Variablen
