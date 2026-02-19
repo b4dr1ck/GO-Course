@@ -226,6 +226,58 @@ default:
 }
 ```
 
+## Functions
+
+```go
+func (receiver-argument) name (param1 type, ...) returntype {
+  // ... code ...//
+  return
+}
+
+// Beispiel
+func plus(a int, b int) int {
+  return a + b
+}
+```
+
+Functions als Werte
+
+```go
+func doubleNumber(n int) int {
+  return n*n
+}
+
+func transformNumbers(numbers []int, transform func(int) int) []int {
+  transformedNumbers := []int{}
+  for _,value := range numbers {
+    transformedNumbers = append(transformedNumbers,transform(value))
+  }
+  return transformedNumbers
+}
+
+numbers := []int{1, 2, 3, 4, 5}
+double := transformNumbers(numbers, doubleNumber)
+```
+
+auch Type Aliases (custom Types) funktionieren hier
+
+```go
+type transformFn func(int) int // declare type
+
+// use custon function type
+func transformNumbers(numbers []int, transform transformFn) []int
+// ....
+
+```
+
+Anonyme Functions sind auch möglich
+
+```go
+numbers := []int{1, 2, 3, 4, 5}
+double := transformNumbers(numbers, func(number int) int { return number * number})
+fmt.Println(double)
+```
+
 ## Structs
 
 Structs werden verwendet um Daten zu gruppieren (vergleichbar mit einem Dictonary oder JSON-Object).
@@ -272,6 +324,7 @@ appUser, err := newUser(userFirstName, userLastName, userBirthdate)
 if err != nil {
   fmt.Println(err)
   return
+
 }
 ```
 
@@ -544,20 +597,6 @@ File lesen
 import "os"
 
 result, err := os.ReadFile("filename.txt")
-```
-
-## Functions
-
-```go
-func name (param1 type, ...) returntype {
-  // ... code ...//
-  return
-}
-
-// Beispiel
-func plus(a int, b int) int {
-  return a + b
-}
 ```
 
 ## Error Handling
