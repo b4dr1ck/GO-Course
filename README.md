@@ -162,7 +162,7 @@ const myFile = "test.txt"
 
 ## Custom Type / Type Aliases
 
-Eigene Types definieren 
+Eigene Types definieren
 
 ```go
 type number int
@@ -171,7 +171,9 @@ var myNumber number
 myNumber = 5
 
 ```
+
 Eigene Methoden für eigene Typen definieren
+
 ```go
 import "fmt"
 
@@ -355,13 +357,78 @@ fmt.Println(myProducts[1:])  // --> Pen, TV, Apple
 fmt.Println(myProducts[:1])  // --> Book
 ```
 
-Unpacking Arrays `list...` 
+Unpacking Arrays `list...`
 
 ```go
 productPrices := []float64{10.99,20.0,105.99}
 newProductPrices := []float64{25.99, 200.0}
 
 productPrices = append(productPrices,newProductPrices...) // ...-operator
+```
+
+## Maps
+
+Maps sind die klassischen Hash-Tables und verwenden ein Key-Value Paar.
+
+Map mit Werten erstellen
+
+```go
+// map[keyType]valueType
+
+urls := map[string]string{
+  "google":    "https://www.google.com/",
+  "homepage":  "https://badricks-world.at/",
+  "localhost": "http://127.0.0.1/",
+}
+```
+
+Alternative kann man hier auch einen Type-Alias verwenden
+
+```go
+type urlsMap map[string]string
+
+urls := urlsMap{
+  "google":    "https://www.google.com/",
+  "homepage":  "https://badricks-world.at/",
+  "localhost": "http://127.0.0.1/",
+}
+
+```
+
+Weitere/Neue Keys erstellen
+
+```go
+urls["deviantart"] = "https://www.deviantart.com/"
+```
+
+Einen Key löschen
+
+```go
+delete(urls, "google")
+```
+
+## Make
+
+Wenn man eine Map oder ein Array mit `make` erstellt wird der Bereich im Speicher gleich reserviert und der Zugriff ist somit schneller und effizieneter.
+
+Wenn mal z.B eine leere Map ohne `make` erstellen würde, könnte man ihr keine Werte zuweisen und es kommt ein Runtime-Error (panic)
+`panic: assignment to entry in nil map`
+
+### Slices mit make
+
+```go
+// make(slice, init-values, capacity )
+prices := make([]float64,0,5)
+fmt.Printf("%v",prices) // => []
+fmt.Printf("len=%d cap=%d\n",len(prices),cap(prices)) // => 0, 5
+```
+
+### Maps mit make
+
+```go
+// make(map)
+urls := make(map[string]string)
+urls["pinterest"] = "https://www.pinterest.com"
 ```
 
 ## Pointer
