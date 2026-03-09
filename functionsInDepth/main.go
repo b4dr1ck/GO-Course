@@ -26,6 +26,15 @@ func transformNumbers(numbers []int, transform transformFn) []int {
 
 func main() {
 	numbers := []int{1, 2, 3, 4, 5}
+
+	// array of functions
+	functions := []transformFn{doubleNumber, tripleNumber, addTen}
+
+	for _, fn := range functions {
+		transformed := transformNumbers(numbers, fn)
+		fmt.Println(transformed)
+	}
+
 	double := transformNumbers(numbers, doubleNumber)
 	triple := transformNumbers(numbers, tripleNumber)
 	plusTen := transformNumbers(numbers, addTen)
