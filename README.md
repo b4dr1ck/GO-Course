@@ -467,7 +467,7 @@ delete(urls, "google")
 
 ## Make
 
-Wenn man eine Map oder ein Array mit `make` erstellt wird der Bereich im Speicher gleich reserviert und der Zugriff ist somit schneller und effizieneter.
+Wenn man eine Map oder ein Array mit `make` erstellt wird der Bereich im Speicher gleich reserviert und der Zugriff ist somit schneller und effizienter.
 
 Wenn mal z.B eine leere Map ohne `make` erstellen würde, könnte man ihr keine Werte zuweisen und es kommt ein Runtime-Error (panic)
 `panic: assignment to entry in nil map`
